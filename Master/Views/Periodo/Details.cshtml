@@ -1,0 +1,72 @@
+﻿@model EvalCore.Models.Evaluacion
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="col-xs-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">  <i class="icon-head"></i>  Detalle Evaluacion </h4>
+            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+
+                    <a asp-action="Edit" asp-route-id="@Model.KeyEval" class="btn btn-warning">Editar</a> 
+                    <a asp-action="Index" class="btn btn-danger">Listado</a>
+                    <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="card-body collapse in" aria-expanded="true" style="">
+            <div class="card-block card-dashboard">
+
+                <div>
+
+                    <dl class="row">
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.Periodoinicial)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Periodoinicial)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.Periodofinal)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Periodofinal)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.Fecha)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Fecha)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.Usuario)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Usuario)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.Estado)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Estado)
+                        </dd>
+                    </dl>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+

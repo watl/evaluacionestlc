@@ -1,0 +1,60 @@
+﻿@model EvalCore.Models.Direcciones
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Direcciones</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="DirId" />
+            <div class="form-group">
+                <label asp-for="DirNombre" class="control-label"></label>
+                <input asp-for="DirNombre" class="form-control" />
+                <span asp-validation-for="DirNombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DirDescripcion" class="control-label"></label>
+                <input asp-for="DirDescripcion" class="form-control" />
+                <span asp-validation-for="DirDescripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DirCentroCosto" class="control-label"></label>
+                <input asp-for="DirCentroCosto" class="form-control" />
+                <span asp-validation-for="DirCentroCosto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DirUsuarioAud" class="control-label"></label>
+                <input asp-for="DirUsuarioAud" class="form-control" />
+                <span asp-validation-for="DirUsuarioAud" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DirFechaAud" class="control-label"></label>
+                <input asp-for="DirFechaAud" class="form-control" />
+                <span asp-validation-for="DirFechaAud" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DirActivo" class="control-label"></label>
+                <input asp-for="DirActivo" class="form-control" />
+                <span asp-validation-for="DirActivo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,178 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+
+<div class="col-xs-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">  <i class="icon-head"></i>  Asignar Funcionarios </h4>
+            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                    <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                    @*<li><a data-action="reload"><i class="icon-reload"></i></a></li>*@
+                    @*<li><a data-action="expand"><i class="icon-expand2"></i></a></li>*@
+                    @*<li><a data-action="close"><i class="icon-cross2"></i></a></li>*@
+                </ul>
+            </div>
+        </div>
+        <div class="card-body collapse in" aria-expanded="true" style="">
+            <div class="card-block card-dashboard">
+
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="issueinput5">Unidad Administrativa a la que pertenece</label>
+                        <div id="errortag4" class="tag tag-danger" style="display: none"> <i class="icon-cancel-circle"></i></div>
+                        <div class="input-group">
+                            <span class="input-group-addon"> <i class="icon-head"></i></span>
+                            @Html.DropDownList("Dircbx", new SelectList(ViewBag.Listofdirec, "DirId", "DirNombre"), "--Seleccione por favor--",
+                           new { @class = "form-control js-select2" })
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="issueinput5">Dpto Proyecto</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"> <i class="icon-head"></i></span>
+
+                            @*<select class="form-control" id="Dptocbx" name="Dptocbx" asp-for="Dptocbx"
+                                        asp-items="@(new SelectList(string.Empty,"KeyDproy","Nombre"))">
+                                </select>*@
+
+                            @Html.DropDownList("Dptocbx", new List<SelectListItem>(),
+                          " -- Seleccionar --", new { @class = "form-control" })
+
+                            @*@Html.DropDownList("Dptocbx", new SelectList(ViewBag.Listofdepto, "KeyDproy", "Nombre"), "--Seleccione por favor--",
+                                new { @class = "form-control", @disabled = "disabled" })*@
+
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary mb-2" onclick="loadData();">Buscar</button>
+                </div>
+
+                <div class="table-responsive table-bordered">
+
+                    <table id="tbl" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>                            
+                                <th>CODIGO</th>
+                                <th>NOMBRES</th>                            
+                                <th>DIRECCION</th>
+                                <th>CARGO</th>
+                                <th>IdDeptproy</th>
+                                <th>EDIT</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblEmp"></tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+
+
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" />
+    @*<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />*@
+
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    @*<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>*@
+
+    <script>
+        $(document).ready(function () {
+            $("#Dircbx").change(function () {
+          
+             
+
+                //$("#tbl").find("tr:gt(0)").remove();
+                $.get("/AdminRH/WelcomeNote", { tt: $("#Dircbx").val() }, function (data) {
+                    // VACIAMOS EL DropDownList
+                    $("#Dptocbx").empty();
+               
+                    // AÑADIMOS UN NUEVO label CON EL NOMBRE DEL ELEMENTO SELECCIONADO
+                    $("#Dptocbx").append("<option value> -- Seleccione" + " " + " --</option>")
+                    // CONSTRUIMOS EL DropDownList A PARTIR DEL RESULTADO Json (data)
+                    $.each(data, function (index, row) {
+                        $("#Dptocbx").append("<option value='" + row.KeyDproy + "'>" + row.Nombre + "</option>")
+                    });
+                });
+            });
+        });
+
+        function ClearDT() {       
+            $('#tbl').DataTable().destroy();
+            $('#tbl tbody').empty();
+        }
+
+        //Load Data function
+        function loadData() {
+            var tblCrg = $('#tblEmp');        
+            var t1 = $('#Dircbx').val();
+            var t2 = $('#Dptocbx').val();    
+            $.ajax({
+                url: "/AdminRH/GetFuncList",
+                data: { DIR_ID: t1, Idproy: t2 },
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    ClearDT();
+                    $.each(result, function (key, val) {
+                        tblCrg.append('<tr><td>' + val.FUN_ID +
+                            '</td><td>' + val.Nombre +
+                            '</td><td>' + val.Direccion +
+                            '</td><td>' + val.Cargo +
+                            '</td><td>' + val.Idproy +
+                            '</td><td>' + '<a href="#" onclick="return getbyID(' + val.FUN_ID + ')">Editar</a>' + '</td></tr>');
+                    });                   
+                    $('#tbl').DataTable({
+                        //"destroy": true,
+                        "dom": 'Blfrtip',
+                        "filter": true,
+                        "paging": true,
+                        "ordering": true,
+                        "responsive": true,
+                        "pageLength": 10,
+                        "columnDefs": [
+                            {
+                                "targets": [4],
+                                "visible": false
+                            }
+                        ]
+                    });
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+    </script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            //combobox search
+            $('.js-select2').select2();
+
+        });
+    </script>
+
+}

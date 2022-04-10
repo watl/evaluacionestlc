@@ -1,0 +1,100 @@
+﻿@model IEnumerable<EvalCore.Models.Evaluacion>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="col-xs-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">  <i class="icon-head"></i>  Listado Periodos </h4>
+            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                    <a asp-action="Create" class="btn btn-success">Crear</a>
+                    <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                    @*<li><a data-action="reload"><i class="icon-reload"></i></a></li>*@
+                    @*<li><a data-action="expand"><i class="icon-expand2"></i></a></li>*@
+                    @*<li><a data-action="close"><i class="icon-cross2"></i></a></li>*@
+                </ul>
+            </div>
+        </div>
+        <div class="card-body collapse in" aria-expanded="true" style="">
+            <div class="card-block card-dashboard">
+
+                <div class="table-responsive ">
+                    <table id="tblEv" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                   @* @Html.DisplayNameFor(model => model.Periodoinicial)*@
+                                    <label>Periodo Inicial</label>
+                                </th>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.Periodofinal)*@
+                                    <label>Periodo Final</label>
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fecha)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Usuario)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Estado)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Periodoinicial)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Periodofinal)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fecha)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Usuario)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Estado)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.KeyEval">Edit</a> |
+                                        <a asp-action="Details" asp-route-id="@item.KeyEval">Details</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.KeyEval">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tblEv').DataTable();
+        });
+    </script>
+
+}

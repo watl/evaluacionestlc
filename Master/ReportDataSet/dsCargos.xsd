@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsCargos" targetNamespace="http://tempuri.org/dsCargos.xsd" xmlns:mstns="http://tempuri.org/dsCargos.xsd" xmlns="http://tempuri.org/dsCargos.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" GeneratorFunctionsComponentClassName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" UserFunctionsComponentName="QueriesTableAdapter" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection ConnectionStringObject="Data Source=.;Initial Catalog=Evcore;Integrated Security=True" IsAppSettingsProperty="false" Modifier="Assembly" Name="us-pc22.Evcore.dbo" ParameterPrefix="@" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsCargos" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsCargos" msprop:Generator_UserDSName="dsCargos">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dsCargos" msprop:Generator_TableClassName="dsCargosDataTable" msprop:Generator_TableVarName="tabledsCargos" msprop:Generator_RowChangedName="dsCargosRowChanged" msprop:Generator_TablePropName="_dsCargos" msprop:Generator_RowDeletingName="dsCargosRowDeleting" msprop:Generator_RowChangingName="dsCargosRowChanging" msprop:Generator_RowEvHandlerName="dsCargosRowChangeEventHandler" msprop:Generator_RowDeletedName="dsCargosRowDeleted" msprop:Generator_RowClassName="dsCargosRow" msprop:Generator_UserTableName="dsCargos" msprop:Generator_RowEvArgName="dsCargosRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CarId" msprop:Generator_ColumnVarNameInTable="columnCarId" msprop:Generator_ColumnPropNameInRow="CarId" msprop:Generator_ColumnPropNameInTable="CarIdColumn" msprop:Generator_UserColumnName="CarId" type="xs:string" minOccurs="0" />
+              <xs:element name="CarNombre" msprop:Generator_ColumnVarNameInTable="columnCarNombre" msprop:Generator_ColumnPropNameInRow="CarNombre" msprop:Generator_ColumnPropNameInTable="CarNombreColumn" msprop:Generator_UserColumnName="CarNombre" type="xs:string" minOccurs="0" />
+              <xs:element name="CarDescripcion" msprop:Generator_ColumnVarNameInTable="columnCarDescripcion" msprop:Generator_ColumnPropNameInRow="CarDescripcion" msprop:Generator_ColumnPropNameInTable="CarDescripcionColumn" msprop:Generator_UserColumnName="CarDescripcion" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

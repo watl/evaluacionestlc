@@ -1,0 +1,641 @@
+﻿
+@model EvalCore.Models.Cargos
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+
+
+<div class="col-xs-12">
+
+    <form asp-controller="Evaluacion" asp-action="Create"
+          data-ajax-method="POST">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Registrar Evaluacion</h4>
+                <div class="heading-elements">
+                    <div class="list-inline mb-0">
+                        <button id="btnClc" onclick="return validardatos();" type="button" class="btn btn-primary btn-sm">Verificar</button>
+                        <button type="button" class="btn btn-danger btn-sm">Cancelar</button>
+
+
+                        <button id="btnSv" type="submit" class="btn btn-success btn-sm">Guardar</button>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-block">
+
+                    <div class="form-group row">
+
+                        <label class="tag tag-default col-sm-3">Tipo de evaluacion:</label>
+
+
+                        <div class="col-sm-3">
+                            <select id="cbxTPEVA" name="tipofun" class="form-control">
+                                <option value="0">SELECCIONE</option>
+                                <option value="1">FUNCIONARIO PUBLICO</option>
+                                <option value="2">SERVIDOR PUBLICO</option>
+                            </select>
+                        </div>
+
+                        <div class="list-inline mb-0">
+                            <label class="tag tag-warning col-sm-1"> Puntiacion: </label>
+                            <div class="col-sm-1">
+                                <input id="ttqfinal" name="ttqfinal" class="form-control" placeholder="NUMERO" type="text" />
+                            </div>
+
+                            <label class="tag tag-warning col-sm-2"> Escala puntuacion: </label>
+                            <div class="col-sm-2">
+                                <input id="ttpond" name="txtPond" class="form-control" placeholder="TEXTO" type="text" />
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+
+
+
+                        <ul class="nav nav-tabs nav-justified">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="link-tab1" data-toggle="tab" href="#linktab1" aria-controls="active" aria-expanded="true">
+                                    <i class="fonticon-wrap icon-ios-settings-strong"></i>  GENERAL
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="link-tab2" data-toggle="tab" href="#linktab2" aria-controls="link" aria-expanded="false">
+                                    <i class="fonticon-wrap icon-arrow-graph-up-right"></i>  COMPROMISO
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="link-tab3" data-toggle="tab" href="#linktab3" aria-controls="linkOpt">
+                                    <i class="fonticon-wrap icon-briefcase"></i>  CALIDAD
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="link-tab4" data-toggle="tab" href="#linktab4" aria-controls="linkOpt">
+                                    <i class="fonticon-wrap icon-checkmark-circled"></i>  ACTITUD
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="link-tab5" data-toggle="tab" href="#linktab5" aria-controls="linkOpt">
+                                    <i class="fonticon-wrap icon-gear-b"></i>  HABILIDADES
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="link-tab6" data-toggle="tab" href="#linktab6" aria-controls="linkOpt">
+                                    <i class="fonticon-wrap icon-android-refresh"></i>
+                                    RETROALIMENTACION
+                                </a>
+                            </li>
+                        </ul>
+                        @*INICIO  CONTENIDO PESTAÑAS*@
+                        <div class="tab-content px-1 pt-1">
+                            <div role="tabpanel" class="tab-pane fade active in" id="linktab1" aria-labelledby="active-tab" aria-expanded="true">
+
+                                <div class="form-body">
+
+                                    <div class="form-group">
+
+                                        <h4 class="form-section"><i class="icon-head"></i> Informacion Personal</h4><hr />
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="issueinput5">Periodo</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> <i class="icon-head"></i></span>
+                                                    @Html.DropDownList("Prdcbx", new SelectList(ViewBag.Prd, "KeyEval", "Periodoinicial"), "--Seleccione periodo a evaluar--",
+                                                   new { @class = "form-control js-select2" })
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="timesheetinput5">Periodo Inicial</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> <i class="icon-calendar5"></i></span>
+                                                    <input type="text" id="dateIni" class="form-control" name="startime" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="timesheetinput5">Periodo Final</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> <i class="icon-calendar5"></i></span>
+                                                    <input type="text" id="dateFn" class="form-control" name="endtime" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+
+                                                <label id="lbFnccbx" for="issueinput5">Nombre del evaluado</label>
+                                                <div id="errortag1" class="tag tag-danger" style="display: none"> <i class="icon-cancel-circle"></i></div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> <i class="icon-head"></i></span>
+                                                    @*@Html.DropDownList("Fnccbx", new SelectList(ViewBag.Listoffunc, "FunId", "FunNombre"), "--Seleccione por favor--", new { @class = "form-control js-select2" })*@
+                                                    @Html.DropDownList("Fnccbx", new SelectList(ViewBag.Listoffunc, "Keyfun", "FNamefull"), "--Seleccione por favor--", new { @class = "form-control js-select2" })
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="timesheetinput3">Fecha Evaluacion</label>
+                                                <div id="errortag2" class="tag tag-danger" style="display: none"> <i class="icon-cancel-circle"></i></div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> <i class="icon-calendar5"></i></span>
+                                                    <input type="date" id="fchactual" class="form-control" name="fcactual">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="issueinput5">Cargo que desenpeña</label>
+                                                <div id="errortag3" class="tag tag-danger" style="display: none"> <i class="icon-cancel-circle"></i></div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> <i class="icon-briefcase4"></i></span>
+
+                                                    @*@Html.DropDownList("cbxcrg2", new SelectList(ViewBag.Listofcarg, "CarId", "CarNombre"), "--Seleccione por favor--", new { @class = "form-control js-select2" })*@
+                                                    @Html.DropDownList("cbxcrg1", new SelectList(ViewBag.Listofcarg, "CarId", "CarNombre"), "--Seleccione por favor--", new { @class = "form-control js-select2" })
+
+                                                    <!--<form asp-controller="Evaluacion" asp-action="Calculate"
+                                  data-ajax-method="POST">
+                                <input type="submit" value="Calculate" class="btn btn-primary" />-->
+                                                    @*<div id="Results"></div>*@
+                                                    <!--<div id="divInterestDeatils"></div>
+                                </form>-->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="issueinput5">Unidad Administrativa a la que pertenece</label>
+                                                <div id="errortag4" class="tag tag-danger" style="display: none"> <i class="icon-cancel-circle"></i></div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> <i class="icon-head"></i></span>
+                                                    @Html.DropDownList("Dircbx", new SelectList(ViewBag.Listofdirec, "DirId", "DirNombre"), "--Seleccione por favor--",
+                                                   new { @class = "form-control js-select2", onchange = @"setdirproyecto(this.value);" })
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    @*<div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="timesheetinput5">Periodo Inicial</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="icon-calendar5"></i></span>
+                                    <input type="text" id="dateIni" class="form-control" name="startime">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="timesheetinput5">Periodo Final</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="icon-calendar5"></i></span>
+                                    <input type="text" id="dateFn" class="form-control" name="endtime">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="issueinput5">Dpto Proyecto</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="icon-head"></i></span>
+                                    @Html.DropDownList("Dptocbx", new SelectList(ViewBag.Listofdepto, "KeyDproy", "Nombre"), "--Seleccione por favor--",
+                                   new { @class = "form-control js-select2", @disabled = "disabled" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>*@
+
+                                    <hr />
+
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="issueinput5">Evaluado por</label>
+                                                <div id="errortag5" class="tag tag-danger" style="display: none"> <i class="icon-cancel-circle"></i></div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> <i class="icon-briefcase4"></i></span>
+                                                    @*@Html.DropDownList("Evlcbx", new SelectList(ViewBag.Listoffunc, "FunId", "FunNombre"), "--Seleccione por favor--", new { @class = "form-control js-select2" })*@
+                                                    @Html.DropDownList("Evlcbx", new SelectList(ViewBag.Listoffunc, "Keyfun", "FNamefull"), "--Seleccione por favor--", new { @class = "form-control js-select2" })
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="issueinput5">Cargo que desempeña</label>
+                                                <div id="errortag6" class="tag tag-danger" style="display: none"> <i class="icon-cancel-circle"></i></div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> <i class="icon-head"></i></span>
+                                                    @Html.DropDownList("cbxcrg2", new SelectList(ViewBag.Listofcarg, "CarId", "CarNombre"), "--Seleccione por favor--", new { @class = "form-control js-select2" })
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+                            @*@foreach (var item in ViewBag.Listofqst)
+            {*@
+                            @*@(item.IDpreg) @(item.Pregunta)
+            @(item.ponderacion)*@
+
+                            <div class="tab-pane fade" id="linktab2" role="tabpanel" aria-labelledby="link-tab2" aria-expanded="false">
+
+                                <p>Compromiso</p>
+                                <table class="table table-bordered table-striped table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-sm-1">#</th>
+                                            <th class="col-sm-8">Pregunta</th>
+                                            <th class="col-sm-3">Ponderacion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var it in ViewBag.Q1)
+                                        {
+                                            <tr>
+                                                <th class="col-sm-1" scope="row">  @(it.IDpreg) </th>
+                                                <td class="col-sm-8">  @(it.Pregunta) </td>
+                                                <td class="col-sm-3">
+                                                    <select id="cb1Q@(it.IDpreg)" name="cb1Q@(it.IDpreg)" class="form-control" onchange="setTotalQ1();">
+                                                        <option value="0">SELECCIONE</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <div class="float-md-right d-xs-block d-md-inline-block">
+                                    <label class="tag tag-danger col-sm-5"> SubTotal Compromiso: </label>
+                                    <div class="col-sm-5">
+                                        <input id="ttq1" name="ttq1" class="form-control" placeholder="SubTotal" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="linktab3" role="tabpanel" aria-labelledby="link-tab3" aria-expanded="false">
+
+                                <table class="table table-bordered table-striped table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-sm-1">#</th>
+                                            <th class="col-sm-8">Pregunta</th>
+                                            <th class="col-sm-3">Ponderacion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var it in ViewBag.Q2)
+                                        {
+                                            <tr>
+                                                <th class="col-sm-1" scope="row">  @(it.IDpreg) </th>
+                                                <td class="col-sm-8">  @(it.Pregunta) </td>
+                                                <td class="col-sm-3">
+                                                    <select id="cb2Q@(it.IDpreg)" name="cb2Q@(it.IDpreg)" class="form-control" onchange="setTotalQ2();">
+                                                        <option value="0">SELECCIONE</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <div class="float-md-right d-xs-block d-md-inline-block">
+                                    <label class="tag tag-danger col-sm-5"> SubTotal Calidad: </label>
+                                    <div class="col-sm-5">
+                                        <input id="ttq2" name="ttq2" class="form-control" placeholder="SubTotal" type="text" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane fade" id="linktab4" role="tabpanel" aria-labelledby="link-tab4" aria-expanded="false">
+                                <table class="table table-bordered table-striped table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-sm-1">#</th>
+                                            <th class="col-sm-8">Pregunta</th>
+                                            <th class="col-sm-3">Ponderacion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var it in ViewBag.Q3)
+                                        {
+                                            <tr>
+                                                <th class="col-sm-1" scope="row">  @(it.IDpreg) </th>
+                                                <td class="col-sm-8">  @(it.Pregunta) </td>
+                                                <td class="col-sm-3">
+                                                    <select id="cb3Q@(it.IDpreg)" name="cb3Q@(it.IDpreg)" class="form-control" onchange="setTotalQ3();">
+                                                        <option value="0">SELECCIONE</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <div class="float-md-right d-xs-block d-md-inline-block">
+                                    <label class="tag tag-danger col-sm-5"> SubTotal Actitud: </label>
+                                    <div class="col-sm-5">
+                                        <input class="form-control" id="ttq3" name="ttq3" placeholder="SubTotal" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="linktab5" role="tabpanel" aria-labelledby="link-tab5" aria-expanded="false">
+
+                                <table class="table table-bordered table-striped table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-sm-1">#</th>
+                                            <th class="col-sm-8">Pregunta</th>
+                                            <th class="col-sm-3">Ponderacion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var it in ViewBag.Q4)
+                                        {
+                                            <tr>
+                                                <th class="col-sm-1" scope="row">  @(it.IDpreg) </th>
+                                                <td class="col-sm-8">  @(it.Pregunta) </td>
+                                                <td class="col-sm-3">
+                                                    <select id="cb4Q@(it.IDpreg)" name="cb4Q@(it.IDpreg)" class="form-control" onchange="setTotalQ4();">
+                                                        <option value="0">SELECCIONE</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <div class="float-md-right d-xs-block d-md-inline-block">
+                                    <label class="tag tag-danger col-sm-5"> SubTotal Habilidades: </label>
+                                    <div class="col-sm-5">
+                                        <input class="form-control" id="ttq4" name="ttq4" placeholder="SubTotal" type="text" />
+                                        <p id="demo"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="linktab6" role="tabpanel" aria-labelledby="link-tab6" aria-expanded="false">
+
+
+                                <div class="col-sm-6">
+                                    <p>I.Fortalezas</p>
+                                    <textarea class="form-control" id="text" name="fztxt"
+                                              maxlength="200" placeholder="Fortalezas" rows="5"></textarea>
+                                    <span class="pull-right label label-default tag tag-pill tag-default" id="count_message"></span>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <p>II.Debilidades</p>
+                                    <textarea class="form-control" id="text2" name="debtxt"
+                                              maxlength="200" placeholder="Debilidades." rows="5"></textarea>
+                                    <span class="pull-right label label-default tag tag-pill tag-default" id="count_message2"></span>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <p>III.Compromisos del Jefe y del Trabajador</p>
+                                    <textarea class="form-control" id="text3" name="comtxt"
+                                              maxlength="200" placeholder="Compromisos del Jefe y del Trabajador" rows="5"></textarea>
+                                    <span class="pull-right label label-default tag tag-pill tag-default" id="count_message3"></span>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <p>IV.Capacitaciones que según sus funciones necesite el empleado</p>
+                                    <textarea class="form-control" id="text4" name="captxt"
+                                              maxlength="200" placeholder="Capacitaciones que según sus funciones necesite el empleado" rows="5"></textarea>
+                                    <span class="pull-right label label-default tag tag-pill tag-default" id="count_message4"></span>
+                                </div>
+
+
+                            </div>
+
+
+
+
+                        </div> @*FIN ROW CONTENIDO*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+@section Scripts {
+
+    @*las librerias adicionales se cargan en _layoutMain.cshtml*@
+    @*Contiene validacion de ciertos campos utilizando libreria toastr.js*@
+    <script src="~/js/Evlmaster.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            //combobox search se inicializa por cada combo para permitir busqueda
+            $('.js-select2').select2();
+
+
+            var FcIni = '@ViewBag.firstDay'
+            var FcFn =  '@ViewBag.lastDay'
+            $('#dateIni').val(FcIni);
+            $('#dateFn').val(FcFn);
+
+            //Contador de caracteres para pestaña de RETROALIMENTACION --->
+            var text_max = 200;
+            $('#count_message').html('0 / ' + text_max);
+            $('#text').keyup(function () {
+                var text_length = $('#text').val().length;
+                var text_remaining = text_max - text_length;
+
+                $('#count_message').html(text_length + ' / ' + text_max);
+            });
+
+            $('#count_message2').html('0 / ' + text_max);
+            $('#text2').keyup(function () {
+                var text_length = $('#text2').val().length;
+                var text_remaining = text_max - text_length;
+
+                $('#count_message2').html(text_length + ' / ' + text_max);
+            });
+
+            $('#count_message3').html('0 / ' + text_max);
+            $('#text3').keyup(function () {
+                var text_length = $('#text3').val().length;
+                var text_remaining = text_max - text_length;
+
+                $('#count_message3').html(text_length + ' / ' + text_max);
+            });
+
+            $('#count_message4').html('0 / ' + text_max);
+            $('#text4').keyup(function () {
+                var text_length = $('#text4').val().length;
+                var text_remaining = text_max - text_length;
+
+                $('#count_message4').html(text_length + ' / ' + text_max);
+            });
+            //---->
+
+
+        });
+    </script>
+
+    <script>
+        //habilitar combo Dptocbx
+        function setdirproyecto(iddir) {
+
+            if (iddir == 28) {
+                $("#Dptocbx").prop("disabled", false);
+            } else {
+                $('#Dptocbx option[value="1"]').prop('selected', true);
+                $("#Dptocbx").prop("disabled", true);
+            }
+        }
+
+   
+        //Mostrar mensaje de ponderacion en base al total 
+        function settotalizar() {
+
+            const tt1 = valNaN(parseInt($('#ttq1').val()));
+            const tt2 = valNaN(parseInt($('#ttq2').val()));
+            const tt3 = valNaN(parseInt($('#ttq3').val()));
+            const tt4 = valNaN(parseInt($('#ttq4').val()));
+            const puntos = tt1 + tt2 + tt3 + tt4;
+
+            $('#ttqfinal').val(puntos);
+
+            if (puntos <= 50) {
+                $('#ttpond').val("DEFICIENTE");
+            } else if (puntos >= 51 && puntos <= 70) {
+                $('#ttpond').val("REGULAR");
+            } else if (puntos >= 71 && puntos <= 90) {
+                $('#ttpond').val("BUENO");
+            } else if (puntos >= 91) {
+                $('#ttpond').val("MUY BUENO");
+            }
+        }
+
+        function valNaN(val) {
+            if (isNaN(val)) {
+                return 0;
+            }
+            return val;
+        }
+
+        //--Totales por pestaña
+        function setTotalQ1() {
+            const xn1 = parseInt($('#cb1Q1').val());
+            const xn2 = parseInt($('#cb1Q2').val());
+            const xn3 = parseInt($('#cb1Q3').val());
+            const xn4 = parseInt($('#cb1Q4').val());
+            const xn5 = parseInt($('#cb1Q5').val());
+            const xn6 = parseInt($('#cb1Q6').val());
+            const xn7 = parseInt($('#cb1Q7').val());
+            const xn8 = parseInt($('#cb1Q8').val());
+            const sumQ1 = xn1 + xn2 + xn3 + xn4 + xn5 + xn6 + xn7 + xn8;
+            $('#ttq1').val(sumQ1);     
+            settotalizar();
+        }
+
+        function setTotalQ2() {
+            const y1 = parseInt($('#cb2Q9').val());
+            const y2 = parseInt($('#cb2Q10').val());
+            const y3 = parseInt($('#cb2Q11').val());
+            const y4 = parseInt($('#cb2Q12').val());
+            const sumQ2 = y1 + y2 + y3 + y4;
+            $('#ttq2').val(sumQ2);
+            settotalizar();
+        }
+
+        function setTotalQ3() {
+            const z1 = parseInt($('#cb3Q13').val());
+            const z2 = parseInt($('#cb3Q14').val());
+            const z3 = parseInt($('#cb3Q15').val());
+            const z4 = parseInt($('#cb3Q16').val());
+            const z5 = parseInt($('#cb3Q17').val());
+            const z6 = parseInt($('#cb3Q18').val());
+            const z7 = parseInt($('#cb3Q19').val());
+            const sumQ3 = z1 + z2 + z3 + z4 + z5 + z6 + z7;
+            $('#ttq3').val(sumQ3);
+            settotalizar();
+        }
+
+        function setTotalQ4() {
+            const n1 = parseInt($('#cb4Q20').val());
+            const n2 = parseInt($('#cb4Q21').val());
+            const n3 = parseInt($('#cb4Q22').val());
+            const n4 = parseInt($('#cb4Q23').val());
+            const n5 = parseInt($('#cb4Q24').val());
+            const n6 = parseInt($('#cb4Q25').val());
+            const sumQ4 = n1 + n2 + n3 + n4 + n5 + n6;
+            document.getElementById("demo").innerHTML = "SUMA TOTAL: " + sumQ4;
+            $('#ttq4').val(sumQ4);
+            settotalizar();
+        }
+
+
+
+    </script>
+
+
+}
+
+
+

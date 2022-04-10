@@ -1,0 +1,21 @@
+﻿ul {
+    list-style-type: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+.btStyle {
+    padding: 1.5rem 0.6rem;
+}
+
+textarea {
+    resize: none;
+}
+
+#count_message {
+    background-color: smoke;
+    margin-top: -20px;
+    margin-right: 5px;
+}

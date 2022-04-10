@@ -1,0 +1,199 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@*@model Cargo*@ 
+@{
+    ViewData["Title"] = "Evaluaciones";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+@{
+//var crg = ViewData["crglist"] as Cargo;
+}
+
+
+
+<div class="content-header row">
+    <div class="content-header-left col-md-10 col-xs-12 mb-1">
+        <h2 class="content-header-title"></h2>
+    </div>
+    <div class="content-header-right breadcrumbs-right breadcrumbs-top col-md-2 col-xs-12">
+        <div class="breadcrumb-wrapper col-xs-12">
+
+            <a class="btn btn-danger btn-sm btn-block" asp-area=""
+               asp-controller="Evaluacion" asp-action="Create">CREAR EVALUACION</a>
+
+        </div>
+    </div>
+</div>
+
+@*@Html.DropDownListFor(x => x.CAR_ID, new SelectList(ViewBag.Listofcarg, "CAR_ID", "CAR_Nombre"),  "--Seleccione por favor--",new { @class = "form-control" })*@
+
+<br />
+
+
+
+<section id="basic-listgroup">
+    <div class="row match-height">
+        <div class="col-lg-6 col-md-12">
+            <div class="card" style="height: 429px;">
+                <div class="card-header">
+                    <h4 class="card-title">INSTRUCCIONES</h4>
+                    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+
+                </div>
+                <div class="card-body collapse in">
+                    <div class="card-block">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action active">
+                                <h5 class="list-group-item-heading">Elaborar con objetividad la evaluacion del desempeño</h5>
+                                @*<p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>*@
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <h5 class="list-group-item-heading">Evite los prejuicios</h5>
+                                @*<p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>*@
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <h5 class="list-group-item-heading">Concentrese en evaluar el desempeño y sobre como lo esta desarrollado el trabajador</h5>
+                                @*<p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>*@
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="card" style="height: 429px;">
+                <div class="card-header">
+                    <h4 class="card-title">DESCRIPCION DE LA CALIFICACION</h4>
+                    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+
+
+                </div>
+                <div class="card-body collapse in">
+                    <div class="card-block">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action active">
+                                <h5 class="list-group-item-heading">
+                                    La calificacion va del 1 al 4; coloar el puntaje en la casilla que
+                                    usted considera merece desempeño del trabajador
+                                </h5>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <h5 class="list-group-item-heading">Lea la clasficacion y su descripcion en el siguiente cuadro</h5>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <h5 class="list-group-item-heading">Debe llenar los formatos fisicos con lapicero y evitar manchones</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xs-12 mt-1 mb-3">
+        <h4>Listado De Ponderacion</h4>
+        <p>Descripcion del puntaje que se puede otorgar por cada pregunta de la evaluacion al desempeño.</p>
+        <hr>
+
+        <div class="col-xl-3 col-lg-6 col-xs-12">
+            <div class="card bg-cyan">
+                <div class="card-body">
+                    <div class="card-block">
+                        <div class="media">
+                            <div class="media-left media-middle">
+                                <i class="icon-pencil white font-large-2 float-xs-left"></i>
+                            </div>
+                            <div class="media-body white text-xs-right">
+                                <h3>1</h3>
+                                <span><strong> DEFICIENTE </strong></span>
+                                <br />
+                                <small>No cumple con los requisitos mínimos</small>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-xs-12">
+            <div class="card bg-deep-orange">
+                <div class="card-body">
+                    <div class="card-block">
+                        <div class="media">
+                            <div class="media-left media-middle">
+                                <i class="icon-chat1 white font-large-2 float-xs-left"></i>
+                            </div>
+                            <div class="media-body white text-xs-right">
+                                <h3>2</h3>
+                                <span><strong> REGULAR </strong></span>
+                                <br />
+                                <small>
+                                    El nivel y calidad de los resultados, no siempre cubren los requisitos básicos.
+                                    El desempeño es inferior al esperado
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-xs-12">
+            <div class="card bg-teal">
+                <div class="card-body">
+                    <div class="card-block">
+                        <div class="media">
+                            <div class="media-left media-middle">
+                                <i class="icon-trending_up white font-large-2 float-xs-left"></i>
+                            </div>
+                            <div class="media-body white text-xs-right">
+                                <h3>3</h3>
+                                <span><strong> BUENO </strong></span>
+                                <br />
+                                <small>
+                                    Cumple con todos los requisitos y expectativas planteadas.
+                                    Presenta un desempeño satisfactorio y es el nivel que se espera de un empleado
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-xs-12">
+            <div class="card bg-pink">
+                <div class="card-body">
+                    <div class="card-block">
+                        <div class="media">
+                            <div class="media-left media-middle">
+                                <i class="icon-map1 white font-large-2 float-xs-left"></i>
+                            </div>
+                            <div class="media-body white text-xs-right">
+                                <h3>4</h3>
+                                <span><strong>MUY BUENO </strong></span>
+                                <br />
+                                <small>
+                                    Cumple con todos los requisitos y expectativas planteadas.
+                                    Sobrepasa el nivel de desempeño que se espera de un empleado con ese nivel de responsabilidad
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</section>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.js-select2').select2();
+        });
+    </script>
+}

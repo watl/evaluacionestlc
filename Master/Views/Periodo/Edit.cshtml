@@ -1,0 +1,115 @@
+﻿@model EvalCore.Models.Evaluacion
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="col-xs-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">  <i class="icon-head"></i>  Editar Periodo </h4>
+            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+
+                    <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body collapse in" aria-expanded="true" style="">
+            <div class="card-block card-dashboard">
+
+                <div style="display:block; margin: 0 auto;">
+
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="KeyEval" />
+
+                        <div class="form-group row">
+                            <label asp-for="Periodoinicial" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-5">
+                                <input asp-for="Periodoinicial" class="form-control" />
+                                <span asp-validation-for="Periodoinicial" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Periodofinal" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-5">
+                                <input asp-for="Periodofinal" class="form-control" />
+                                <span asp-validation-for="Periodofinal" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="Fecha" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-5">
+                                <input asp-for="Fecha" class="form-control" />
+                                <span asp-validation-for="Fecha" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Usuario" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-5">
+                                <input asp-for="Usuario" class="form-control" />
+                                <span asp-validation-for="Usuario" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Estado" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-5">
+      
+                                <select id="cbxEstado" name="cbxEstado" class="form-control">
+                                    <option value="false">Seleccione</option>
+                                    <option value="true">True</option>
+                                    <option value="false">False</option>
+                                </select>
+                                @*<input asp-for="Estado" class="form-control" />*@
+                                <span asp-validation-for="Estado" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <a asp-action="Index" class="btn btn-danger">Listado</a>
+                    </form>
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    $(document).ready(function () {
+        //permite visualizar el esta en un combo en vez de un txt, codigo original <input asp-for="Estado" class="form-control" />
+        var Est =  '@ViewBag.Est'
+   
+        if (Est == "False") {
+            $('#cbxEstado option[value="false"]').prop('selected', true);
+        } else {
+            $('#cbxEstado option[value="true"]').prop('selected', true);
+       
+        }
+    });
+</script>
+ 
+}
